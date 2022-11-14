@@ -18,4 +18,5 @@ export const store = reactive({
 
     // Api Loading
     loading: false,
+    notFounded: false
 })

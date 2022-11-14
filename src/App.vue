@@ -5,6 +5,7 @@ import { store } from "./store";
 import AppLogo from "./components/AppLogo.vue";
 import AppSearchBar from "./components/AppSearchBar.vue";
 import AppList from "./components/AppList.vue";
+import AppLoader from "./components/AppLoader.vue";
 
 export default{
   data(){
@@ -15,10 +16,12 @@ export default{
   components: {
     AppLogo,
     AppSearchBar,
-    AppList
+    AppList,
+    AppLoader
   },
   methods: {
     getSearch(){
+      this.store.notFounded = false;
       this.store.loading = true;
       console.log(this.store.loading);
       // Film
@@ -50,6 +53,9 @@ export default{
               console.log("Chiamata terminata serie");
               this.store.loading = false;
               console.log(this.store.loading);
+              if(this.store.resultMovies.length === 0 && this.store.resultSeries.length === 0){
+                this.store.notFounded = true;
+              }
             })
         })
     }
@@ -66,7 +72,8 @@ export default{
   </header>
 
   <main>
-    <AppList />
+    <AppLoader v-if="store.loading" />
+    <AppList v-else/>
   </main>
 </template>
 

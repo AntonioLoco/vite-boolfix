@@ -3,43 +3,96 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default{
     name: "CardMovie",
-    data(){
-        return{
-            starsRaiting: 5,
-        }
-    },
     props: {
-        movie: Object,
         stars: Number,
         imgLanguage: String,
         imgPoster: String,
-    },
-    components: { FontAwesomeIcon }
+        title: String,
+        titleOriginal: String,
+        movieLanguage: String,
+        overview: String
+    }
 }
 </script>
 
 <template>
     <div class="card-movie">
-        <img :src="imgPoster" :alt="movie.title">
-        <h2>Titolo: {{movie.title}}</h2>
-        <h4>Titolo Originale: {{movie.original_title}}</h4>
-        <div class="language">
-            <img :src="imgLanguage" :alt="movie.original_language">
+        <div class="front-card">
+            <img :src="imgPoster" :alt="title">
         </div>
-        <div class="stars">
-            <span>Voto: {{stars}}</span>
-            <span class="icon-star" v-for="(index) in 5" :key="index">
-                <font-awesome-icon :icon="['fas', 'star']" v-if="stars >= index"/>
-                <font-awesome-icon :icon="['far', 'star']" v-else/>
-            </span>
+        <div class="back-card">
+            <h2>Titolo: {{title}}</h2>
+            <h4 v-if=" title !== titleOriginal ">Titolo Originale: {{titleOriginal}}</h4>
+            <div class="language">
+                <img :src="imgLanguage" :alt="movieLanguage">
+            </div>
+            <div class="stars">
+                <span>Voto: </span>
+                <span class="icon-star" v-for="(index) in 5" :key="index">
+                    <font-awesome-icon :icon="['fas', 'star']" v-if="stars >= index"/>
+                    <font-awesome-icon :icon="['far', 'star']" v-else/>
+                </span>
+            </div>
+            <div class="overview" v-if=" overview !== '' ">
+                <h2>Overview:</h2>
+                <p>
+                    {{overview}}
+                </p>
+            </div>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .language{
+.card-movie{
+    width: 100%;
+    height: 100%;
+
+    .front-card{
+        width: 100%;
+        height: 100%;
+
         img{
-            width: 25px;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     }
+
+    .back-card{
+        display: none;
+        width: 100%;
+        height: 100%;
+        padding: 1em;
+
+        h2{
+            font-size: 1.2rem;
+        }
+
+        h4{
+            font-size: 1rem;
+        }
+        .language{
+            img{
+                width: 25px;
+            }
+        }
+
+        .icon-star{
+            color: yellow;
+        }
+    }
+
+
+    &:hover{
+        background-color: black;
+        .front-card{
+            display: none;
+        }
+
+        .back-card{
+            display: block;
+        }
+    }
+}
 </style>
