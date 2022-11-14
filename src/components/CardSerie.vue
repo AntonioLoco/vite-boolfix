@@ -19,7 +19,13 @@ export default{
         <div class="language">
             <img :src="imgLanguage" :alt="serie.original_language">
         </div>
-        <p>Voto: {{stars}}</p>
+        <div class="stars">
+            <span>Voto: {{stars}}</span>
+            <span class="icon-star" v-for="(index) in 5" :key="index">
+                <font-awesome-icon :icon="['fas', 'star']" v-if="stars >= index"/>
+                <font-awesome-icon :icon="['far', 'star']" v-else/>
+            </span>
+        </div>
     </div>
 </template>
 
