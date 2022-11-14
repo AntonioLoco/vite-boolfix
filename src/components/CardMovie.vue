@@ -21,12 +21,14 @@ export default{
             <img :src="imgPoster" :alt="title">
         </div>
         <div class="back-card">
-            <h2>Titolo: {{title}}</h2>
-            <h4 v-if=" title !== titleOriginal ">Titolo Originale: {{titleOriginal}}</h4>
-            <div class="language">
+            <div class="info mb-3">
+                <h2>Titolo: {{title}}</h2>
+                <h4 v-if=" title !== titleOriginal ">Titolo Originale: {{titleOriginal}}</h4>
+            </div>
+            <div class="language mb-2">
                 <img :src="imgLanguage" :alt="movieLanguage">
             </div>
-            <div class="stars">
+            <div class="stars mb-2">
                 <span>Voto: </span>
                 <span class="icon-star" v-for="(index) in 5" :key="index">
                     <font-awesome-icon :icon="['fas', 'star']" v-if="stars >= index"/>
@@ -68,9 +70,10 @@ export default{
         h2{
             font-size: 1.2rem;
         }
-
-        h4{
-            font-size: 1rem;
+        .info{
+            h4{
+                font-size: 1rem;
+            }
         }
         .language{
             img{
@@ -80,6 +83,11 @@ export default{
 
         .icon-star{
             color: yellow;
+        }
+
+        .overview{
+            overflow-y: auto;
+            max-height: 250px;
         }
     }
 
