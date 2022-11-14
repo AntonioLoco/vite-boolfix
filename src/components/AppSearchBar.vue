@@ -12,7 +12,7 @@ export default{
 </script>
 
 <template>
-    <div class="form-input">
+    <div class="form-input mb-4">
         <label class="d-none" for="search-input">Cerca un film o serie tv</label>
         <input type="text" v-model="store.apiParams.query" id="search-input" placeholder="Cerca">
         <button @click="$emit('btnSearch')" class="btn btn-primary">Cerca</button>

@@ -65,7 +65,7 @@ export default{
 
 <template>
   <header>
-    <div class="container-fluid d-flex flex-wrap justify-content-between py-3">
+    <div class="container-fluid d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-3">
       <AppLogo />
       <AppSearchBar @btnSearch="getSearch"/>
     </div>
