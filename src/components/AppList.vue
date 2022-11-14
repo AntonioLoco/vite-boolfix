@@ -14,6 +14,14 @@ export default{
     components: {
         CardMovie,
         CardSerie
+    },
+    methods: {
+        getImagePath(imgPath){
+            return new URL(imgPath, import.meta.url).href;
+        },
+        getStars(vote){
+            return Math.ceil(vote / 2);
+        }
     }
 }
 </script>
@@ -25,7 +33,7 @@ export default{
             <h1>Film</h1>
             <ul>
                 <li v-for="movie in store.resultMovies" :key="movie.id">
-                    <CardMovie :movie="movie"/>
+                    <CardMovie :movie="movie" :stars="getStars(movie.vote_average)" :imgLanguage="getImagePath(`../assets/img/${movie.original_language}.png`)" :imgPoster="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`"/>
                 </li>
             </ul>
         </div>
@@ -36,7 +44,7 @@ export default{
             <h1>Serie</h1>
             <ul>
                 <li v-for="serie in store.resultSeries" :key="serie.id">
-                    <CardSerie :serie="serie"/>
+                    <CardSerie :serie="serie" :stars="getStars(serie.vote_average)" :imgLanguage="getImagePath(`../assets/img/${serie.original_language}.png`)" :imgPoster="`https://image.tmdb.org/t/p/w342/${serie.poster_path}`"/>
                 </li>
             </ul>
         </div>
