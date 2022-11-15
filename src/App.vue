@@ -3,7 +3,7 @@ import axios from "axios";
 import { store } from "./store";
 
 import AppLogo from "./components/AppLogo.vue";
-import AppSearchBar from "./components/AppSearchBar.vue";
+import AppSearch from "./components/AppSearch.vue";
 import AppList from "./components/AppList.vue";
 import AppLoader from "./components/AppLoader.vue";
 
@@ -15,7 +15,7 @@ export default{
   },
   components: {
     AppLogo,
-    AppSearchBar,
+    AppSearch,
     AppList,
     AppLoader
   },
@@ -71,7 +71,7 @@ export default{
   <header>
     <div class="container-fluid d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-3">
       <AppLogo />
-      <AppSearchBar @btnSearch="getSearch"/>
+      <AppSearch @btnSearch="getSearch"/>
     </div>
   </header>
 

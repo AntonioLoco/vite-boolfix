@@ -26,90 +26,109 @@ export default{
 </script>
 
 <template>
-    <div class="card-item">
-        <div class="front-card">
-            <img :src="getImagePath(`https://image.tmdb.org/t/p/w342/${item.poster_path}`)" :alt="getName">
-        </div>
-        <div class="back-card">
-            <div class="info mb-3">
-                <h2>Titolo: {{getName}}</h2>
-                <h4 v-if=" title !== titleOriginal ">Titolo Originale: {{getOriginalName}}</h4>
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <img :src="getImagePath(`https://image.tmdb.org/t/p/w342/${item.poster_path}`)" :alt="getName">
             </div>
-            <div class="language mb-2">
-                <img :src="getImagePath(`../assets/img/${item.original_language}.png`)" :alt="item.original_language">
-            </div>
-            <div class="stars mb-2">
-                <span>Voto: </span>
-                <span class="icon-star" v-for="number in 5" :key="number">
-                    <font-awesome-icon :icon="['fas', 'star']" v-if="getStars(item.vote_average) >= number"/>
-                    <font-awesome-icon :icon="['far', 'star']" v-else/>
-                </span>
-            </div>
-            <div class="overview" v-if=" item.overview !== '' ">
-                <h2>Overview:</h2>
-                <p>
-                    {{item.overview}}
-                </p>
+            <div class="flip-card-back">
+                <div class="info">
+                    <h2>Titolo:</h2><span>{{getName}}</span>
+                    <h4 v-if="getName !== getOriginalName">Titolo Originale: </h4><span v-if="getName !== getOriginalName">{{getOriginalName}}</span>
+                </div>
+                <div class="language mb-2">
+                    <img :src="getImagePath(`../assets/img/${item.original_language}.png`)" :alt="item.original_language">
+                </div>
+                <div class="stars mb-2">
+                    <h2>Voto: </h2>
+                    <span class="icon-star" v-for="number in 5" :key="number">
+                        <font-awesome-icon :icon="['fas', 'star']" v-if="getStars(item.vote_average) >= number"/>
+                        <font-awesome-icon :icon="['far', 'star']" v-else/>
+                    </span>
+                </div>
+                <div class="overview" v-if=" item.overview !== '' ">
+                    <h2>Overview:</h2>
+                    <p>
+                        {{item.overview}}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.card-item{
+.flip-card{
     width: 100%;
     height: 100%;
+    perspective: 1000px;
 
-    .front-card{
+    .flip-card-inner{
+        position: relative;
         width: 100%;
         height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
 
-        img{
+
+        .flip-card-front{
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-    }
-
-    .back-card{
-        display: none;
-        width: 100%;
-        height: 100%;
-        padding: 1em;
-
-        h2{
-            font-size: 1.2rem;
-        }
-        .info{
-            h4{
-                font-size: 1rem;
-            }
-        }
-        .language{
+            backface-visibility: hidden;
+    
             img{
-                width: 25px;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
         }
+    
+        .flip-card-back{
+            background-color: #000;
+            color: #f1f1f1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            overflow: hidden;
+            padding: 1em;
+            font-size: 1.2rem;
+            
+            h2{
+                font-size: 1.4rem;
+            }
 
-        .icon-star{
-            color: yellow;
-        }
+            .language{
+                img{
+                    width: 25px;
+                }
+            }
 
-        .overview{
-            overflow-y: auto;
-            max-height: 250px;
+            .stars{
+                .icon-star{
+                    color: yellow;
+                }
+            }
+
+            .overview{
+                height: 70%;
+                overflow-y: auto;
+                padding-bottom: 1em;
+
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+            }
         }
     }
-
 
     &:hover{
-        background-color: black;
-        .front-card{
-            display: none;
-        }
-
-        .back-card{
-            display: block;
+        .flip-card-inner{
+            transform: rotateY(180deg);
         }
     }
 }

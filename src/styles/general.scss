@@ -13,3 +13,24 @@ body{
 img {
     max-width: 100%;
 }
+
+#app{
+    width: 100%;
+    height: 100vh;
+
+    header{
+        height: 100px;
+        display: flex;
+        align-items: center;
+    }
+
+    main{
+        width: 100%;
+        height: calc(100vh - 100px);
+        overflow-y: auto;
+
+        &::-webkit-scrollbar{
+            display: none;
+        }
+    }
+}

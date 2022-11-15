@@ -2,7 +2,7 @@
 import { store } from '../store';
 
 export default{
-    name: "AppSearchBar",
+    name: "AppSearch",
     data(){
         return {
             store
