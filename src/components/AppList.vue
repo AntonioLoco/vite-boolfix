@@ -30,9 +30,20 @@ export default{
                 <div class="title-list py-5">
                     <h1 class="text-center">Film</h1>
                 </div>
+                <div class="select-genres">
+                    <select class="form-select" v-model="store.filterMovies">
+                        <option selected value="">Scegli un genere</option>
+                        <option v-for="(genre,index) in store.genresMovie" :key="index" :value="genre.id">{{genre.name}}</option>
+                    </select>
+                </div>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                    <div class="col mb-4" v-for="movie in store.resultMovies" :key="movie.id">
-                        <AppCard :item="movie" />
+                    <div 
+                        class="col mb-4" 
+                        v-for="movie in store.resultMovies" 
+                        :key="movie.id" 
+                        v-show="(movie.genre_ids).includes(store.filterMovies) || store.filterMovies === '' "
+                        >
+                        <AppCard :item="movie"/>
                     </div>
                 </div>
             </div>
@@ -41,8 +52,19 @@ export default{
                 <div class="title-list py-5">
                     <h1 class="text-center">Serie</h1>
                 </div>
+                <div class="select-genres">
+                    <select class="form-select" v-model="store.filterSeries">
+                        <option selected value="">Scegli un genere</option>
+                        <option v-for="(genre,index) in store.genresSeries" :key="index" :value="genre.id">{{genre.name}}</option>
+                    </select>
+                </div>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
-                    <div class="col mb-4" v-for="serie in store.resultSeries" :key="serie.id">
+                    <div 
+                        class="col mb-4" 
+                        v-for="serie in store.resultSeries" 
+                        :key="serie.id"
+                        v-show="(serie.genre_ids).includes(store.filterSeries) || store.filterSeries === '' "
+                        >
                         <AppCard :item="serie" />
                     </div>
                 </div>
@@ -79,6 +101,11 @@ export default{
         h1{
             font-size: 4rem;
         }
+    }
+
+    .select-genres{
+        width: 250px;
+        margin-bottom: 3em;
     }
 }
 </style>

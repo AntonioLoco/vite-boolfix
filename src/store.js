@@ -1,9 +1,10 @@
 import { reactive } from "vue";
 
 export const store = reactive({
-    // Api Url 
+    // Api Url
     apiMovieURL: "https://api.themoviedb.org/3/search/movie",
     apiSerieURL: "https://api.themoviedb.org/3/search/tv",
+    apiGenresUrl: "https://api.themoviedb.org/3/genre/",
 
     // Api Params
     apiParams: {
@@ -15,6 +16,12 @@ export const store = reactive({
     // Api Result
     resultMovies: [],
     resultSeries: [],
+    genresMovie: [],
+    genresSeries: [],
+
+    // Filter
+    filterMovies: "",
+    filterSeries: "",
 
     // Api Loading
     loading: false,

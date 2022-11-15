@@ -25,6 +25,10 @@ export default{
       this.store.notFounded = false;
       this.store.loading = true;
 
+      //Svuoto i filtri generi
+      this.store.filterMovies = "";
+      this.store.filterSeries = "";
+
       //Effettuo le chiamate
       this.getMovies();
       this.getSeries();
@@ -50,6 +54,9 @@ export default{
         .catch( (error) => {
           console.log("Error", error);
         })
+        .finally( () => {
+          this.getGenresMovie()
+        })
 
     },
     getSeries(){
@@ -61,7 +68,56 @@ export default{
         .catch( (error) => {
           console.log("Error", error);
         })
+        .finally( () => {
+          this.getGenresSeries();
+        })
 
+    },
+    getGenresMovie(){
+      this.store.genresMovie = [];
+      const apiURL =  `${this.store.apiGenresUrl}movie/list`;
+      const params = {
+        api_key: this.store.apiParams.api_key
+      }
+
+      axios
+        .get( apiURL, { params })
+        .then( (resp) => {
+          for(let i = 0; i < resp.data.genres.length; i++){
+            for(let j = 0; j < this.store.resultMovies.length; j++){
+              if((this.store.resultMovies[j].genre_ids).includes(resp.data.genres[i].id)){
+                this.store.genresMovie.push(resp.data.genres[i]);
+                break;
+              }
+            }
+          }
+        })
+        .catch( (error) => {
+          console.log("Error", error);
+        })
+    },
+    getGenresSeries(){
+      this.store.genresSeries = [];
+      const apiURL =  `${this.store.apiGenresUrl}tv/list`;
+      const params = {
+        api_key: this.store.apiParams.api_key
+      }
+
+      axios
+        .get( apiURL, { params })
+        .then( (resp) => {
+          for(let i = 0; i < resp.data.genres.length; i++){
+            for(let j = 0; j < this.store.resultSeries.length; j++){
+              if((this.store.resultSeries[j].genre_ids).includes(resp.data.genres[i].id)){
+                this.store.genresSeries.push(resp.data.genres[i]);
+                break;
+              }
+            }
+          }
+        })
+        .catch( (error) => {
+          console.log("Error", error);
+        })
     }
   }
 }

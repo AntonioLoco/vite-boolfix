@@ -40,7 +40,7 @@ export default{
                     <h4 v-if="getName !== getOriginalName">Titolo Originale: </h4><span v-if="getName !== getOriginalName">{{getOriginalName}}</span>
                 </div>
                 <div class="language mb-2">
-                    <country-flag :country="`${getLanguage}`" size="medium" />
+                    <country-flag :country="`${getLanguage}`" size="small" />
                 </div>
                 <div class="stars mb-2">
                     <h2>Voto: </h2>
