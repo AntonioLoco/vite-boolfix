@@ -1,7 +1,7 @@
 <script>
 import { store } from '../store';
 
-import CardMovie from './CardMovie.vue';
+import AppCard from './AppCard.vue';
 
 export default{
     name: "AppList",
@@ -11,16 +11,8 @@ export default{
         }
     },
     components: {
-        CardMovie,
+        AppCard,
     },
-    methods: {
-        getImagePath(imgPath){
-            return new URL(imgPath, import.meta.url).href;
-        },
-        getStars(vote){
-            return Math.ceil(vote / 2);
-        }
-    }
 }
 </script>
 
@@ -29,21 +21,16 @@ export default{
         <h1 class="text-center">Nessuna risultato trovato</h1>
     </div>
     <div class="py-5 container" v-else>
+        <div class="text-center" v-if="store.resultMovies.length === 0 && store.resultSeries.length === 0">
+            <h1>Effettua una ricerca</h1>
+        </div>
         <div class="movies-list" v-if="store.resultMovies.length > 0">
             <div class="title-list py-3">
                 <h1 class="text-center">Film</h1>
             </div>
             <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4">
                 <div class="col mb-4" v-for="movie in store.resultMovies" :key="movie.id">
-                    <CardMovie 
-                        :stars="getStars(movie.vote_average)"
-                        :imgLanguage="getImagePath(`../assets/img/${movie.original_language}.png`)" 
-                        :imgPoster="`https://image.tmdb.org/t/p/w342/${movie.poster_path}`"
-                        :title="movie.title"
-                        :titleOriginal="movie.original_title"
-                        :movieLanguage="movie.original_language"
-                        :overview="movie.overview"
-                        />
+                    <AppCard :item="movie" />
                 </div>
             </div>
         </div>
@@ -54,15 +41,7 @@ export default{
             </div>
             <div class="row  row-cols-2 row-cols-md-3 row-cols-xl-4">
                 <div class="col mb-4" v-for="serie in store.resultSeries" :key="serie.id">
-                    <CardMovie 
-                        :stars="getStars(serie.vote_average)" 
-                        :imgLanguage="getImagePath(`../assets/img/${serie.original_language}.png`)" 
-                        :imgPoster="`https://image.tmdb.org/t/p/w342/${serie.poster_path}`"
-                        :title="serie.name"
-                        :titleOriginal="serie.original_name"
-                        :movieLanguage="serie.original_language"
-                        :overview="serie.overview"
-                        />
+                    <AppCard :item="serie" />
                 </div>
             </div>
         </div>

@@ -21,43 +21,47 @@ export default{
   },
   methods: {
     getSearch(){
+      //Imposto il not found a false e il caricamento a true
       this.store.notFounded = false;
       this.store.loading = true;
-      console.log(this.store.loading);
-      // Film
+
+      //Effettuo le chiamate
+      this.getMovies();
+      this.getSeries();
+
+
+      setTimeout(() => {
+          //Controllo se non è stato trovato nulla
+          if(this.store.resultMovies.length === 0 && this.store.resultSeries.length === 0){
+            this.store.notFounded = true;
+          }
+
+          //Termino il caricamento
+          this.store.loading = false;
+      }, 1000);
+      
+    },
+    getMovies(){
       axios
         .get(this.store.apiMovieURL, { params: this.store.apiParams })
         .then( (resp) => {
-          console.log(resp.data.results);
           this.store.resultMovies = resp.data.results;
-          console.log(this.store.resultMovies, "Result film");
         })
         .catch( (error) => {
           console.log("Error", error);
         })
-        .finally( () => {
-          console.log("Chiamata terminata film");
-          console.log("Inizio chiamata serie");
-          // Serie
-          axios
-            .get(this.store.apiSerieURL, { params: this.store.apiParams })
-            .then( (resp) => {
-              console.log(resp.data.results);
-              this.store.resultSeries = resp.data.results;
-              console.log(this.store.resultSeries, "Result Serie");
-            })
-            .catch( (error) => {
-              console.log("Error", error);
-            })
-            .finally( () => {
-              console.log("Chiamata terminata serie");
-              this.store.loading = false;
-              console.log(this.store.loading);
-              if(this.store.resultMovies.length === 0 && this.store.resultSeries.length === 0){
-                this.store.notFounded = true;
-              }
-            })
+
+    },
+    getSeries(){
+      axios
+        .get(this.store.apiSerieURL, { params: this.store.apiParams })
+        .then( (resp) => {
+          this.store.resultSeries = resp.data.results;
         })
+        .catch( (error) => {
+          console.log("Error", error);
+        })
+
     }
   }
 }
