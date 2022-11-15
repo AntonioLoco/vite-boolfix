@@ -5,7 +5,7 @@ export default{
 </script>
 
 <template>
-    <div class="logo mb-4">
+    <div class="logo">
         <img src="../assets/img/logo.png" alt="">
     </div>
 </template>
