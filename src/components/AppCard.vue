@@ -33,7 +33,8 @@ export default{
     <div class="flip-card">
         <div class="flip-card-inner">
             <div class="flip-card-front">
-                <img :src="getImagePath(`https://image.tmdb.org/t/p/w342/${item.poster_path}`)" :alt="getName">
+                <img v-if="item.poster_path" :src="getImagePath(`https://image.tmdb.org/t/p/w342/${item.poster_path}`)" :alt="getName">
+                <img v-else src="../assets/img/No_image_available.jpg" alt="No img Avaible">
             </div>
             <div class="flip-card-back">
                 <div class="info">

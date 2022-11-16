@@ -107,5 +107,9 @@ export default{
         width: 250px;
         margin-bottom: 3em;
     }
+
+    .series-list{
+        margin-bottom: 7em;
+    }
 }
 </style>
