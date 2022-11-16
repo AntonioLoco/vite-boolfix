@@ -36,7 +36,7 @@ export default{
                         <option v-for="(genre,index) in store.genresMovie" :key="index" :value="genre.id">{{genre.name}}</option>
                     </select>
                 </div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                     <div 
                         class="col mb-4" 
                         v-for="movie in store.resultMovies" 
@@ -58,7 +58,7 @@ export default{
                         <option v-for="(genre,index) in store.genresSeries" :key="index" :value="genre.id">{{genre.name}}</option>
                     </select>
                 </div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                     <div 
                         class="col mb-4" 
                         v-for="serie in store.resultSeries" 

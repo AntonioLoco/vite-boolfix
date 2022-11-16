@@ -55,7 +55,8 @@ export default{
           console.log("Error", error);
         })
         .finally( () => {
-          this.getGenresMovie()
+          this.getGenresMovie();
+          this.getMovieActor();
         })
 
     },
@@ -70,6 +71,7 @@ export default{
         })
         .finally( () => {
           this.getGenresSeries();
+          this.getSerieActor();
         })
 
     },
@@ -118,6 +120,44 @@ export default{
         .catch( (error) => {
           console.log("Error", error);
         })
+    },
+    getMovieActor(){
+      const params = {
+        api_key: this.store.apiParams.api_key
+      }
+
+      for(let i = 0; i < this.store.resultMovies.length; i++){
+        const idMovie = this.store.resultMovies[i].id;
+        const apiURL = `https://api.themoviedb.org/3/movie/${idMovie}/credits`;
+
+        axios
+          .get(apiURL, { params })
+          .then( (resp) => {
+            this.store.resultMovies[i].cast = resp.data.cast;
+          })
+          .catch( (err) => {
+            console.log(err);
+          })
+      }
+    },
+    getSerieActor(){
+      const params = {
+        api_key: this.store.apiParams.api_key
+      }
+
+      for(let i = 0; i < this.store.resultSeries.length; i++){
+        const idSerie = this.store.resultSeries[i].id;
+        const apiURL = `https://api.themoviedb.org/3/tv/${idSerie}/credits`;
+
+        axios
+          .get(apiURL, { params })
+          .then( (resp) => {
+            this.store.resultSeries[i].cast = resp.data.cast;
+          })
+          .catch( (err) => {
+            console.log(err);
+          })
+      }
     }
   }
 }

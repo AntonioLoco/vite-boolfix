@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default{
@@ -49,6 +50,12 @@ export default{
                         <font-awesome-icon :icon="['far', 'star']" v-else/>
                     </span>
                 </div>
+                <div class="cast" v-if="item.cast.length > 0">
+                    <h2>Cast</h2>
+                    <ul>
+                        <li v-for="( person ,index ) in item.cast" :key="index" v-show="index < 5">{{person.name}}</li>
+                    </ul>
+                </div>
                 <div class="overview" v-if=" item.overview !== '' ">
                     <h2>Overview:</h2>
                     <p>
@@ -70,7 +77,7 @@ export default{
         position: relative;
         width: 100%;
         height: 100%;
-        text-align: center;
+        text-align: left;
         transition: transform 0.8s;
         transform-style: preserve-3d;
 
@@ -100,7 +107,12 @@ export default{
             overflow: hidden;
             padding: 1em;
             font-size: 1.2rem;
-            
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar{
+                display: none;
+            }
+
             h2{
                 font-size: 1.4rem;
             }
