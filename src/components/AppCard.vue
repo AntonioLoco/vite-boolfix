@@ -16,14 +16,14 @@ export default{
         },
         getLanguage(){
             return this.item.original_language === 'en' ? this.item.original_language = 'gb' : this.item.original_language
+        },
+        getStars(){
+            return Math.ceil(this.item.vote_average / 2);
         }
     },
     methods: {
         getImagePath(imgPath){
             return new URL(imgPath, import.meta.url).href;
-        },
-        getStars(vote){
-            return Math.ceil(vote / 2);
         }
     }
 }
@@ -47,7 +47,7 @@ export default{
                 <div class="stars mb-2">
                     <h2>Voto: </h2>
                     <span class="icon-star" v-for="number in 5" :key="number">
-                        <font-awesome-icon :icon="['fas', 'star']" v-if="getStars(item.vote_average) >= number"/>
+                        <font-awesome-icon :icon="[ 'fas', 'star']" v-if="getStars >= number"/>
                         <font-awesome-icon :icon="['far', 'star']" v-else/>
                     </span>
                 </div>
@@ -74,7 +74,7 @@ export default{
     height: 100%;
     perspective: 1000px;
 
-    .flip-card-inner{
+    &-inner{
         position: relative;
         width: 100%;
         height: 100%;
@@ -96,7 +96,7 @@ export default{
         }
     
         .flip-card-back{
-            background-color: #000;
+            background-color: rgba( #000000, .5);
             color: #f1f1f1;
             position: absolute;
             width: 100%;
